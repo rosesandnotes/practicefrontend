@@ -2,7 +2,7 @@ import { getToken } from "./authentication";
 
 function loginRequest({email, password}){
   return new Promise((resolve, reject) => {
-    fetch("http://localhost:5000/users/login", {
+    fetch("https://practicebackend.herokuapp.com/users/login", {
       method: "post",
       headers: {
         "Content-Type": "application/json; charset=utf-8"
@@ -22,9 +22,35 @@ function loginRequest({email, password}){
   });
 }
 
+
+function registerRequest({email, password,name}){
+  return new Promise((resolve, reject) => {
+    fetch("https://practicebackend.herokuapp.com/users/signup", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      body: JSON.stringify({
+        email,
+        password,
+        name
+      })
+    }).then(response => {
+      response.json().then(json => {
+        if (!response.ok){
+          return reject(json);
+        }
+        resolve(json);
+      }).catch(e => reject(e));
+    }).catch(e => reject(e))
+  });
+}
+
+
+
 function getDashboard(){
   return new Promise((resolve, reject) => {
-    fetch("http://localhost:5000/dashboard", {
+    fetch("https://practicebackend.herokuapp.com/users/dashboard", {
       headers: {
        'Authorization': getToken() 
       }
@@ -42,5 +68,6 @@ function getDashboard(){
 
 export {
   loginRequest,
+  registerRequest,
   getDashboard
 }
