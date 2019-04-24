@@ -50,7 +50,7 @@ function registerRequest({email, password,name}){
 
 function getDashboard(){
   return new Promise((resolve, reject) => {
-    fetch("https://practicebackend.herokuapp.com/users/dashboard", {
+    fetch("https://practicebackend.herokuapp.com/dashboard", {
       headers: {
        'Authorization': getToken() 
       }
